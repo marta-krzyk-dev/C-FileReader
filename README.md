@@ -25,9 +25,8 @@ The easiest and most convinient solution is to read a variable using >> operand.
 
 		return ReadLine();
 	}
-  
-  string FileReader::ReadLine()
-{
+	string FileReader::ReadLine()
+	{
 	//go to the end of current line if it only contains whitespaces
 	bool only_whitespace = true;
 	line = "";
@@ -47,22 +46,22 @@ The easiest and most convinient solution is to read a variable using >> operand.
 	}
 
 	return line;
-}
+	}
 
 ## Solution 2
 Another solution is to read a line from text file, then determine the typeid using typeid(T) function. Only then we can and then convert text data into desired type. The type is known at compile type, because we have to put it in angle brackets when calling the Read function. See code below.
 
-main () {
-...
-unsigned short us = fr.Read<unsigned short>();
-...
-}
+	main () {
+	...
+	unsigned short us = fr.Read<unsigned short>();
+	...
+	}
 
-class FileReader
-{
-...
-template<typename T>
-	T Read() {
+	class FileReader
+	{
+	...
+	template<typename T>
+		T Read() {
 
 		line = ReadDigitString();
 
@@ -110,20 +109,17 @@ template<typename T>
 
 		return T(); //return the default value of the type
 	}
-  }
+  	}
 
 If the conversion fails, the function prints exception onto screen.
 
 To handle non-numeric types like char, string, bool, I had to create specialized templates.
 
-template<>
-	string Read<string>(void)
-	{
-
-		if (std::getline(stream, line))
-		{
-			return line;
-		}
+	template<>
+	string Read<string>(void) {
+	
+		if (std::getline(stream, line)) {
+			return line; }
 
 		return string(); //return an empty string if stream is null
 	}
